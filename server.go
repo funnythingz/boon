@@ -10,6 +10,8 @@ func routes() {
 
     m := martini.Classic()
 
+    m.Use(martini.Static("assets"))
+
     m.Get("/", func() string {
         return "Hello world!"
     })
