@@ -1,9 +1,5 @@
 # hello martini
 
-## command
-
-### server
-
 ```
-% go run server.go
+% go run app.go
 ```
