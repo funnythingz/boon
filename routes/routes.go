@@ -1,12 +1,11 @@
-package main
+package routes
 
-import "github.com/go-martini/martini"
+import (
+    "github.com/go-martini/martini"
+    //"github.com/martini-contrib/render"
+)
 
-func main() {
-    routes()
-}
-
-func routes() {
+func Router() {
 
     m := martini.Classic()
 
@@ -20,11 +19,11 @@ func routes() {
         return "Hello " + params["name"]
     })
 
-    m.Group("/users", func(router martini.Router) {
-        router.Get("/:id", GetUsers)
-        router.Post("/new", NewUser)
-        router.Put("/update/:id", UpdateUser)
-        router.Delete("/delete/:id", DeleteUser)
+    m.Group("/users", func(r martini.Router) {
+        r.Get("/:id", GetUsers)
+        r.Post("/new", NewUser)
+        r.Put("/update/:id", UpdateUser)
+        r.Delete("/delete/:id", DeleteUser)
     })
 
     m.Run()
