@@ -3,6 +3,10 @@ package main
 import "github.com/go-martini/martini"
 
 func main() {
+    app()
+}
+
+func app() {
 
     m := martini.Classic()
 
@@ -10,5 +14,10 @@ func main() {
         return "Hello world!"
     })
 
+    m.Get("/:name", func(params martini.Params) string {
+        return "Hello " + params["name"]
+    })
+
     m.Run()
+
 }
