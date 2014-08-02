@@ -27,8 +27,7 @@ func Router() {
     })
 
     m.Get("/", func(r render.Render) {
-        header := HeaderModel{"Boon", "日程を調整するおっ(^^"}
-        r.HTML(200, "index", header)
+        r.HTML(200, "index", nil)
     })
 
     m.Get("/about", AboutRender)
@@ -47,8 +46,7 @@ func Router() {
 }
 
 func AboutRender(r render.Render) {
-    header := HeaderModel{"About", "日程をえらべるお(^^"}
-    r.HTML(200, "about", header)
+    r.HTML(200, "about", nil)
 }
 
 func BoonList() string {
@@ -60,8 +58,7 @@ func ShowBoon() string {
 }
 
 func NewBoon(r render.Render) {
-    header := HeaderModel{"日程をえらブーン", "さぁえらブーンだ！"}
-    r.HTML(200, "boon/new", header)
+    r.HTML(200, "boon/new", nil)
 }
 
 func PostNewBoon() {
