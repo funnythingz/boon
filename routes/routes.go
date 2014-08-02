@@ -5,7 +5,7 @@ import (
     "github.com/martini-contrib/render"
 )
 
-type Header struct {
+type HeaderModel struct {
     Title string
     Description string
 }
@@ -22,35 +22,47 @@ func Router() {
         Charset: "utf-8",
     }))
 
+    m.NotFound(func (r render.Render){
+        r.Redirect("/")
+    })
+
     m.Get("/", func(r render.Render) {
-        header := Header{"Index", "Description"}
-        r.HTML(200, "index", header)
+        r.HTML(200, "index", nil)
     })
 
-    m.Get("/ids/:name", func(params martini.Params) string {
-        return "Hello " + params["name"]
+    m.Get("/about", func(r render.Render) {
+        header := HeaderModel{"About", "ブーンについて"}
+        r.HTML(200, "about", header)
     })
 
-    m.Group("/users", func(r martini.Router) {
-        r.Get("/:id", GetUsers)
-        r.Post("/new", NewUser)
-        r.Put("/update/:id", UpdateUser)
-        r.Delete("/delete/:id", DeleteUser)
+    m.Group("/boon", func(r martini.Router) {
+        r.Get("/admin", BoonList)
+        r.Get("/:id", ShowBoon)
+        r.Post("/new", NewBoon)
+        r.Put("/edit/:id", EditBoon)
+        r.Delete("/delete/:id", DeleteBoon)
     })
 
     m.Run()
 
 }
 
-func GetUsers() string {
-    return "get Users"
+func BoonList() string {
+    return "BoonList"
 }
 
-func NewUser() {
+func ShowBoon() string {
+    return "ShowBoon"
 }
 
-func UpdateUser() {
+func NewBoon() string {
+    return "NewBoon"
 }
 
-func DeleteUser() {
+func EditBoon() string {
+    return "EditBoon"
+}
+
+func DeleteBoon() string {
+    return "DeleteBoon"
 }
