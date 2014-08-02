@@ -51,7 +51,7 @@
             <h3 class="panel-title">日程を選択するおっ(^q^</h3>
           </div>
           <div class="panel-body">
-            <input type="text" type="text" class="form-control" id="data-picker">
+            <div id="select-date-picker"></div>
           </div>
         </div>
       </div>
@@ -64,6 +64,15 @@
 
 <script>
 $(function() {
-  $('#data-picker').datepicker({});
+
+  var datepickerOptions = {
+    language: "ja",
+    todayHighlight: true
+  }
+
+  $('#select-date-picker').datepicker(datepickerOptions)
+    .on(picker_event, function(event) {
+      console.log(0);
+    });
 });
 </script>
