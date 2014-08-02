@@ -1,4 +1,8 @@
-# hello martini
+# boon
+
+use [martini](https://github.com/go-martini/martini)
+
+# setup
 
 package install
 
@@ -10,5 +14,5 @@ package install
 run
 
 ```
-% go run app.go
+% go run boon.go
 ```
