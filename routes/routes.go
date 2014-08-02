@@ -27,24 +27,28 @@ func Router() {
     })
 
     m.Get("/", func(r render.Render) {
-        r.HTML(200, "index", nil)
+        header := HeaderModel{"Boon", "日程を調整するおっ(^^"}
+        r.HTML(200, "index", header)
     })
 
-    m.Get("/about", func(r render.Render) {
-        header := HeaderModel{"About", "ブーンについて"}
-        r.HTML(200, "about", header)
-    })
+    m.Get("/about", AboutRender)
 
     m.Group("/boon", func(r martini.Router) {
         r.Get("/admin", BoonList)
-        r.Get("/:id", ShowBoon)
-        r.Post("/new", NewBoon)
+        r.Get("/entry/:id", ShowBoon)
+        r.Get("/new", NewBoon)
+        r.Post("/new", PostNewBoon)
         r.Put("/edit/:id", EditBoon)
         r.Delete("/delete/:id", DeleteBoon)
     })
 
     m.Run()
 
+}
+
+func AboutRender(r render.Render) {
+    header := HeaderModel{"About", "日程をえらべるお(^^"}
+    r.HTML(200, "about", header)
 }
 
 func BoonList() string {
@@ -55,8 +59,12 @@ func ShowBoon() string {
     return "ShowBoon"
 }
 
-func NewBoon() string {
-    return "NewBoon"
+func NewBoon(r render.Render) {
+    header := HeaderModel{"日程をえらブーン", "さぁえらブーンだ！"}
+    r.HTML(200, "boon/new", header)
+}
+
+func PostNewBoon() {
 }
 
 func EditBoon() string {
