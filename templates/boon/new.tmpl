@@ -1,8 +1,69 @@
 <div class="container">
 
-    <h1>{{.Title}}</h1>
-    <p class="lead">
-        {{.Description}}
-    </p>
+  <h1>日程をえらブーン</h1>
+
+  <form class="form-horizontal">
+
+    <div class="row">
+
+      <div class="col-lg-6">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">イベントを入力するおっ(^^</h3>
+          </div>
+          <div class="panel-body">
+
+            <div class="form-group">
+              <label for="inputEventTitle" class="col-lg-4 control-label">イベント名</label>
+              <div class="col-lg-8">
+                <input type="text" class="form-control" id="inputEventTitle" placeholder="ex: 歓迎会">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputEventTime" class="col-lg-4 control-label">予定時間</label>
+              <div class="col-lg-8">
+                <input type="text" class="form-control" id="inputEventTime" placeholder="ex: 移動込みで3時間くらい">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="infoArea" class="col-lg-4 control-label">詳細など</label>
+              <div class="col-lg-8">
+                <textarea class="form-control" rows="5" id="infoArea"></textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputPassword" class="col-lg-4 control-label">主催者パスワード</label>
+              <div class="col-lg-8">
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">日程を選択するおっ(^q^</h3>
+          </div>
+          <div class="panel-body">
+            <input type="text" type="text" class="form-control" id="data-picker">
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /row -->
+
+  </form>
 
 </div>
+
+<script>
+$(function() {
+  $('#data-picker').datepicker({});
+});
+</script>
