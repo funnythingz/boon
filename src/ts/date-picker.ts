@@ -26,10 +26,10 @@ class DatePickerApp {
 
     updateDate(e) {
         if(_.isUndefined(e.date)) {
-            this.$selectDate.html('')
+            this.$selectDate.val('')
         } else {
             var date = Helper.createDate(new Date(e.date));
-            this.$selectDate.html(date)
+            this.$selectDate.val(date)
         }
     }
 
