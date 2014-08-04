@@ -29,7 +29,7 @@ class DatePickerApp {
             this.$selectDate.val('')
         } else {
             var date = Helper.createDate(new Date(e.date));
-            this.$selectDate.val(date)
+            this.$selectDate.val(date);
         }
     }
 
