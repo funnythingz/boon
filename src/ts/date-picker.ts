@@ -1,19 +1,22 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
+/// <reference path="helper.ts" />
+
 class DatePickerApp {
 
     $selectDate = $('#select-date');
     $datePicker = $('#date-picker');
 
     constructor() {
-        this.events();
+        this.ready();
     }
 
-    events() {
+    ready() {
 
         var datepickerOptions = {
             language: "ja",
-            todayHighlight: true
+            todayHighlight: true,
+            format: "dd/mm/yyyy"
         }
 
         this.$datePicker
@@ -25,7 +28,8 @@ class DatePickerApp {
         if(_.isUndefined(e.date)) {
             this.$selectDate.html('')
         } else {
-            this.$selectDate.html(e.date.toString())
+            var date = Helper.createDate(new Date(e.date));
+            this.$selectDate.html(date)
         }
     }
 
