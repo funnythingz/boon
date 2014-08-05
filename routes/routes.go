@@ -58,6 +58,7 @@ func ShowBoon() string {
 }
 
 func NewBoon(r render.Render) {
+
     r.HTML(200, "boon/new", map[string]interface{}{
         "Options": []string {"hoge", "ahya", "hage"},
     })
