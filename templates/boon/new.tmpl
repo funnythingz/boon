@@ -58,12 +58,22 @@
               <div class="col-md-6">
                 <div class="col-md-12">
                   <div class="form-group">
+                    <label for="select-date">日程</label>
                     <input class="form-control" id="select-date" type="text" readonly="readonly">
                   </div>
                   <div class="form-group">
-                    <select class="form-control" id="select-time">
+                    <label for="select-start-time">開始時間</label>
+                    <select class="form-control" id="select-start-time">
                       {{range .Options}}
-                        <option>{{.}}</option>
+                        <option value="{{.}}">{{.}}</option>
+                      {{end}}
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="select-end-time">終了時間</label>
+                    <select class="form-control" id="select-end-time">
+                      {{range .Options}}
+                        <option value="{{.}}">{{.}}</option>
                       {{end}}
                     </select>
                   </div>
