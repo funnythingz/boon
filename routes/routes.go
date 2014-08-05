@@ -3,12 +3,8 @@ package routes
 import (
     "github.com/go-martini/martini"
     "github.com/martini-contrib/render"
+    "../view"
 )
-
-type HeaderModel struct {
-    Title string
-    Description string
-}
 
 func Router() {
 
@@ -30,47 +26,17 @@ func Router() {
         r.HTML(200, "index", nil)
     })
 
-    m.Get("/about", AboutRender)
+    m.Get("/about", view.AboutRender)
 
     m.Group("/boon", func(r martini.Router) {
-        r.Get("/admin", BoonList)
-        r.Get("/entry/:id", ShowBoon)
-        r.Get("/new", NewBoon)
-        r.Post("/new", PostNewBoon)
-        r.Put("/edit/:id", EditBoon)
-        r.Delete("/delete/:id", DeleteBoon)
+        r.Get("/admin", view.BoonList)
+        r.Get("/entry/:id", view.ShowBoon)
+        r.Get("/new", view.NewBoon)
+        r.Post("/new", view.PostNewBoon)
+        r.Put("/edit/:id", view.EditBoon)
+        r.Delete("/delete/:id", view.DeleteBoon)
     })
 
     m.Run()
 
-}
-
-func AboutRender(r render.Render) {
-    r.HTML(200, "about", nil)
-}
-
-func BoonList() string {
-    return "BoonList"
-}
-
-func ShowBoon() string {
-    return "ShowBoon"
-}
-
-func NewBoon(r render.Render) {
-
-    r.HTML(200, "boon/new", map[string]interface{}{
-        "Options": []string {"hoge", "ahya", "hage"},
-    })
-}
-
-func PostNewBoon() {
-}
-
-func EditBoon() string {
-    return "EditBoon"
-}
-
-func DeleteBoon() string {
-    return "DeleteBoon"
 }
