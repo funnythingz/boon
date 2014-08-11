@@ -4,6 +4,7 @@ import (
     "net/http"
     "github.com/codegangsta/negroni"
     render "github.com/unrolled/render"
+    "log"
 )
 
 func main() {
@@ -31,9 +32,13 @@ func main() {
         })
     })
 
-    n := negroni.Classic()
+    mux.HandleFunc("/hoge", func(w http.ResponseWriter, req *http.Request) {
+        log.Println(req)
+    })
 
+    n := negroni.Classic()
     n.UseHandler(mux)
+    n.UseHandler(http.NotFoundHandler())
     n.Use(negroni.NewStatic(http.Dir("./assets")))
 
     n.Run(":3000")
