@@ -34,7 +34,7 @@ func main() {
     n := negroni.Classic()
 
     n.UseHandler(mux)
-    n.Use(negroni.NewStatic(http.Dir("assets")))
+    n.Use(negroni.NewStatic(http.Dir("./assets")))
 
     n.Run(":3000")
 
