@@ -1,42 +1,41 @@
 package main
 
 import (
-    "github.com/go-martini/martini"
-    "github.com/martini-contrib/render"
-    "./view"
+    "net/http"
+    "github.com/codegangsta/negroni"
+    render "github.com/unrolled/render"
 )
 
 func main() {
 
-    m := martini.Classic()
-
-    m.Use(martini.Static("assets"))
-    m.Use(render.Renderer(render.Options{
+    r := render.New(render.Options{
         Directory: "templates",
         Layout: "layout",
         Extensions: []string{".tmpl"},
         Charset: "utf-8",
-    }))
-
-    m.NotFound(func (r render.Render){
-        r.Redirect("/")
     })
 
-    m.Get("/", func(r render.Render) {
-        r.HTML(200, "index", nil)
+    mux := http.NewServeMux()
+
+    mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+        r.HTML(w, http.StatusOK, "index", nil)
     })
 
-    m.Get("/about", view.AboutRender)
-
-    m.Group("/boon", func(r martini.Router) {
-        r.Get("/admin", view.BoonList)
-        r.Get("/entry/:id", view.ShowBoon)
-        r.Get("/new", view.NewBoon)
-        r.Post("/new", view.PostNewBoon)
-        r.Put("/edit/:id", view.EditBoon)
-        r.Delete("/delete/:id", view.DeleteBoon)
+    mux.HandleFunc("/about", func(w http.ResponseWriter, req *http.Request) {
+        r.HTML(w, http.StatusOK, "about", nil)
     })
 
-    m.Run()
+    mux.HandleFunc("/new", func(w http.ResponseWriter, req *http.Request) {
+        r.HTML(w, http.StatusOK, "new", map[string]interface{}{
+            "Options": CreateTimeOptions(),
+        })
+    })
+
+    n := negroni.Classic()
+
+    n.UseHandler(mux)
+    n.Use(negroni.NewStatic(http.Dir("assets")))
+
+    n.Run(":3000")
 
 }
