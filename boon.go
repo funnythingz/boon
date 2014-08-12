@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/codegangsta/negroni"
 	render "github.com/unrolled/render"
-	"log"
+	_ "log"
 	"net/http"
 )
 
@@ -32,13 +32,9 @@ func main() {
 		})
 	})
 
-	mux.HandleFunc("/hoge", func(w http.ResponseWriter, req *http.Request) {
-		log.Println(req)
-	})
-
 	n := negroni.Classic()
 	n.UseHandler(mux)
-	//n.UseHandler(http.NotFoundHandler())
+    //n.UseHandler(http.NotFoundHandler())
 
 	n.Run(":3000")
 
