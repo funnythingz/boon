@@ -11,8 +11,8 @@ package install
 % go get github.com/martini-contrib/render
 ```
 
-run
+run (use fresh)
 
 ```
-% go run boon.go
+% fresh
 ```
