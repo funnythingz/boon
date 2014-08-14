@@ -1,41 +1,41 @@
 package main
 
 import (
-	"github.com/codegangsta/negroni"
-	render "github.com/unrolled/render"
-	_ "log"
-	"net/http"
+    "github.com/go-martini/martini"
+    "github.com/martini-contrib/render"
 )
+
+type Options struct {
+    Options []string
+}
 
 func main() {
 
-	r := render.New(render.Options{
-		Directory:  "templates",
-		Layout:     "layout",
-		Extensions: []string{".tmpl"},
-		Charset:    "utf-8",
-	})
+    m := martini.Classic()
 
-	mux := http.NewServeMux()
+    m.Use(render.Renderer(render.Options{
+        Directory: "templates",
+        Layout: "layout",
+        Extensions: []string{".tmpl"},
+        Charset: "utf-8",
+    }))
 
-	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		r.HTML(w, http.StatusOK, "index", nil)
-	})
+    m.NotFound(func (r render.Render){
+        r.Redirect("/")
+    })
 
-	mux.HandleFunc("/about", func(w http.ResponseWriter, req *http.Request) {
-		r.HTML(w, http.StatusOK, "about", nil)
-	})
+    m.Get("/", func(r render.Render) {
+        r.HTML(200, "index", nil)
+    })
 
-	mux.HandleFunc("/new", func(w http.ResponseWriter, req *http.Request) {
-		r.HTML(w, http.StatusOK, "new", map[string]interface{}{
-			"Options": CreateTimeOptions(),
-		})
-	})
+    m.Get("/about", func(r render.Render) {
+        r.HTML(200, "about", nil)
+    })
 
-	n := negroni.Classic()
-	n.UseHandler(mux)
-    //n.UseHandler(http.NotFoundHandler())
+    m.Get("/new", func(r render.Render) {
+        r.HTML(200, "new", &Options{CreateTimeOptions()})
+    })
 
-	n.Run(":3000")
+    m.Run()
 
 }
